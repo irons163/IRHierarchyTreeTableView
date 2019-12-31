@@ -1,6 +1,5 @@
 //
 //  FunctionModelItem.h
-//  EZMCloud
 //
 //  Created by Phil on 2018/3/27.
 //
@@ -18,8 +17,8 @@ typedef NS_ENUM(NSInteger, FunctionType){
 @property (nonatomic) BOOL hideCells;
 - (FunctionType)type;
 - (NSInteger)rowCount;
-- (NSString*)rowTitleForIndex:(NSInteger)rowIndex;
-- (NSString*)sectionTitle;
+- (NSString *)rowTitleForIndex:(NSInteger)rowIndex;
+- (NSString *)sectionTitle;
 - (UIImage *)sectionLeftIcon;
 - (void)updateWithData:(Device*)device;
 @end

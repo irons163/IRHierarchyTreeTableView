@@ -1,6 +1,5 @@
 //
 //  FunctionModelLANItem.m
-//  EZMCloud
 //
 //  Created by Phil on 2018/3/27.
 //

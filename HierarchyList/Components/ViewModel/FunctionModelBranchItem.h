@@ -1,6 +1,5 @@
 //
 //  FunctionModelLANItem.h
-//  EZMCloud
 //
 //  Created by Phil on 2018/3/27.
 //
@@ -10,5 +9,5 @@
 
 @interface FunctionModelBranchItem : NSObject <FunctionModelItem>
 
--(instancetype)initWithRowCount:(NSInteger)rowCount;
+- (instancetype)initWithRowCount:(NSInteger)rowCount;
 @end

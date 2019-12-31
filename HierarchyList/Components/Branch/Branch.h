@@ -12,18 +12,15 @@
 #import "Model.h"
 #import "BranchTableIView.h"
 
-@interface Branch : NSObject<Corp>{
-//    UITableView *tableView;
+@interface Branch : NSObject<Corp, HierarchyViewModelDelegate>{
     NSMutableArray *children;
     Model *model;
-//    BOOL isSelected;
 }
 
-//@property Device *device;
 @property BOOL isOpened;
 @property BOOL isNeedReload;
 @property (weak) BranchTableIView *tableView;
 
--(instancetype)initWithTableView:(UITableView*)tableView;
-//-(void)reload;
+- (instancetype)initWithTableView:(UITableView*)tableView;
+
 @end

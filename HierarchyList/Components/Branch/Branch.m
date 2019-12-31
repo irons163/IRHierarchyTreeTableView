@@ -22,32 +22,21 @@
 @synthesize superNode;
 @synthesize device;
 
--(instancetype)init{
+- (instancetype)init {
     if(self = [super init]){
-//        self.tableView = [[UITableView alloc] init];
         children = [NSMutableArray array];
         model = [[Model alloc] init];
         [model updateWithData:self.device];
-//        [model setde]
-//        tableView.delegate = model;
         model.delegate = self;
-//        model.tableView = self.tableView;
-//        self.tableView.dataSource = model;
         self.isOpened = NO;
-        
-//        [self.tableView registerNib:[UINib nibWithNibName:BranchTableViewCell.identifier bundle:nil] forCellReuseIdentifier:BranchTableViewCell.identifier];
-//        [self.tableView registerNib:[UINib nibWithNibName:LeafTableViewCell.identifier bundle:nil] forCellReuseIdentifier:LeafTableViewCell.identifier];
-//        [self.tableView registerNib:[UINib nibWithNibName:@"BranchHeaderView" bundle:nil] forHeaderFooterViewReuseIdentifier:@"BranchHeaderView"];
-//        tableView.estimatedRowHeight = 44;
-//        tableView.rowHeight = UITableViewAutomaticDimension;
     }
     
     return self;
 }
 
--(instancetype)initWithTableView:(UITableView*)_tableView{
+- (instancetype)initWithTableView:(UITableView *)tableView {
     if(self = [self init]){
-        self.tableView = _tableView;
+        self.tableView = tableView;
         self.tableView.dataSource = model;
         self.tableView.delegate = self;
     }
@@ -55,8 +44,7 @@
     return self;
 }
 
-- (instancetype)initWithDevice:(Device*)device
-{
+- (instancetype)initWithDevice:(Device *)device {
     self = [self init];
     if (self) {
         self.device = device;
@@ -64,17 +52,9 @@
     return self;
 }
 
--(void)attachWithTableView:(BranchTableIView*)tableView withIndex:(NSInteger)index{
-//    model.tableView = self.tableView;
-//    self.tableView.dataSource = model;
-    
+- (void)attachWithTableView:(BranchTableIView*)tableView withIndex:(NSInteger)index {
     Branch *branch = [children objectAtIndex:index];
-//    if(branch.tableView){
-//        [branch.tableView updateTableHeight];
-//        return;
-//    }
-//    NSLock *lock = [[NSLock alloc] init];
-//    dispatch_semaphore_t sema = dispatch_semaphore_create(0);
+
     if(branch.tableView && branch.tableView != tableView){
         
         branch.isNeedReload = YES;
@@ -88,30 +68,21 @@
     branch.tableView = tableView;
     branch.tableView.dataSource = branch->model;
     branch.tableView.delegate = branch;
-//    [branch.tableView beginUpdates];
-    
-
-    
-        
-//    [branch.tableView endUpdates];
-//    [lock lock];
-//    dispatch_semaphore_wait(sema, DISPATCH_TIME_FOREVER);
-//    dispatch_release(sema);
 }
 
--(void)reloadwithIndex:(NSInteger)index{
+- (void)reloadwithIndex:(NSInteger)index {
     Branch *branch = [children objectAtIndex:index];
     
     
     [UIView setAnimationsEnabled:NO];
     
-        if(branch.isNeedReload){
-            branch.isNeedReload = NO;
-            [branch.tableView performBatchUpdates:^{
-                [branch->model loadAll:branch.tableView];
-            } completion:^(BOOL finished) {
-                
-                dispatch_async(dispatch_get_main_queue(), ^{
+    if(branch.isNeedReload){
+        branch.isNeedReload = NO;
+        [branch.tableView performBatchUpdates:^{
+            [branch->model loadAll:branch.tableView];
+        } completion:^(BOOL finished) {
+            
+            dispatch_async(dispatch_get_main_queue(), ^{
                 [branch.tableView performBatchUpdates:^{
                     //
                     
@@ -129,12 +100,12 @@
                     }
                     
                 }];
-                    
-                });
-            }];
-        }else{
-            dispatch_async(dispatch_get_main_queue(), ^{
                 
+            });
+        }];
+    }else{
+        dispatch_async(dispatch_get_main_queue(), ^{
+            
             [branch.tableView performBatchUpdates:^{
                 //
                 
@@ -152,53 +123,14 @@
                 }
                 
             }];
-            
-            });
-        }
         
-
-    
+        });
+    }
+        
     [UIView setAnimationsEnabled:YES];
-    
-//    [self loopUpdate:branch];
-        
-        
-    
-    return;
-    dispatch_async(dispatch_get_main_queue(), ^{
-    [branch.tableView reloadDataWithCompletion:^{
-//        [branch.tableView setNeedsLayout];
-//        [branch.tableView invalidateIntrinsicContentSize];
-//        [self.tableView setNeedsLayout];
-//        [self.tableView invalidateIntrinsicContentSize];
-//        [self.tableView setNeedsUpdateConstraints];
-        BOOL needLoopUpdate = YES;
-        for (id<Corp> child in branch.getChildren) {
-            if([child isKindOfClass:[Branch class]] && !((Branch*)child).isOpened){
-                needLoopUpdate = NO;
-            }
-        }
-        
-        if(needLoopUpdate){
-            [self loopUpdate];
-        }
-        
-        
-        //        [branch.tableView layoutIfNeeded];
-        //        dispatch_async(dispatch_get_main_queue(), ^{
-        //            [self.tableView reloadDataWithCompletion:^{
-        ////                [self.tableView setNeedsLayout];
-        //    //            [self.tableView layoutIfNeeded];
-        ////                [self.tableView setNeedsDisplay];
-        //            }];
-        //        });
-        //        dispatch_semaphore_signal(sema);
-        //        [lock unlock];
-    }];
-    });
 }
 
--(void)reload{
+- (void)reload {
     [self.tableView reloadDataWithCompletion:^{
         BOOL needLoopUpdate = YES;
         for (id<Corp> child in self.getChildren) {
@@ -213,19 +145,15 @@
     }];
 }
 
--(void)hide:(NSInteger)section{
+- (void)hide:(NSInteger)section {
     Branch *branch = [children objectAtIndex:section];
     [branch click];
     
     [UIView setAnimationsEnabled:NO];
     
-    
     [branch.tableView performBatchUpdates:^{
         [branch->model hideAll:branch.tableView];
-
-
     } completion:^(BOOL finished) {
-//        [self loopUpdate:branch];
         [branch.tableView setNeedsUpdateConstraints];
         [branch.tableView needsUpdateConstraints];
         [branch.tableView setNeedsLayout];
@@ -235,37 +163,23 @@
     }];
 
     [UIView setAnimationsEnabled:YES];
-    
-//    [self reloadwithIndex:section];
-    
-    
-//    if(self.superNode){
-        [self loopUpdate:branch];
-//    }
-//    [self uu:section];
+
+    [self loopUpdate:branch];
 }
 
--(void)loopUpdate{
-//    [self.tableView beginUpdates];
-//    [self.tableView endUpdates];
-//    dispatch_async(dispatch_get_main_queue(), ^{
+- (void)loopUpdate {
     [UIView setAnimationsEnabled:NO];
-
-    
-        [self.tableView performBatchUpdates:nil completion:^(BOOL finished) {
-            
-        }];
+    [self.tableView performBatchUpdates:nil completion:^(BOOL finished) {
+        
+    }];
     
     if(self.superNode){
         [self.superNode loopUpdate];
     }
     [UIView setAnimationsEnabled:YES];
-    
-    
-//    });
 }
 
--(void)add:(id<Corp>)corp{
+- (void)add:(id<Corp>)corp {
     if(corp.superNode){
         [corp.superNode remove:corp];
     }
@@ -281,37 +195,31 @@
         [leafItem updateWithData:corp.device];
         [model addItem:leafItem];
     }
-    
-//    [self.tableView reloadData];
 }
 
--(void)remove:(id<Corp>)corp{
+- (void)remove:(id<Corp>)corp {
     if([children containsObject:corp]){
         [children removeObject:corp];
         corp.superNode = nil;
     }
 }
 
--(NSArray *)getChildren{
+- (NSArray *)getChildren {
     return children;
 }
 
--(void)click{
+- (void)click {
     self.isOpened = !self.isOpened;
 }
 
--(CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
+- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
     if(![model getSectionTitleinSection:section]){
         return 0;
     }
     return UITableViewAutomaticDimension;
 }
 
-- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
-{
-//    if (section == 0) {
-//        return nil;
-//    }
+- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
     BranchHeaderView* sectionHeaderView = (BranchHeaderView*)[tableView dequeueReusableHeaderFooterViewWithIdentifier:@"BranchHeaderView"];
     sectionHeaderView.delegate = self;
     sectionHeaderView.arrowImageView.hidden = YES;
@@ -329,15 +237,12 @@
     dispatch_async(dispatch_get_main_queue(), ^{
         Branch *branch = [children objectAtIndex:section];
         [branch click];
-        
-//        [self reload];
+
         [self uu:section];
     });
 }
 
--(void)uu:(NSInteger)section{
-//    [UIView setAnimationsEnabled:NO];
-    
+- (void)uu:(NSInteger)section {
     [UIView animateWithDuration:0 animations:^{
         [self.tableView performBatchUpdates:^{
             [model hideRows:![model hiddenRowsinSection:section] inSection:section];
@@ -350,58 +255,29 @@
             [self.tableView reloadSections:[NSIndexSet indexSetWithIndex:section] withRowAnimation:UITableViewRowAnimationNone];
             [self.tableView layoutIfNeeded];
         } completion:^(BOOL finished) {
-//            [UIView setAnimationsEnabled:YES];
-//            [self.tableView updateTableHeight];
             [self.tableView layoutIfNeeded];
         }];
     }];
-
-    
-//    BOOL needLoopUpdate = YES;
-//    for (id<Corp> child in self.getChildren) {
-//        if([child isKindOfClass:[Branch class]] && !((Branch*)child).isOpened){
-//            needLoopUpdate = NO;
-//        }
-//    }
-//
-//    if(needLoopUpdate){
-//        [self.superNode loopUpdate:self];
-//    }
-//    [UIView setAnimationsEnabled:YES];
     
     if(self.superNode){
         [self.superNode loopUpdate:self];
     }
-    
-    
 }
 
 -(void)loopUpdate:(id<Corp>)calledChild{
     dispatch_async(dispatch_get_main_queue(), ^{
-
-    
-//    [UIView setAnimationsEnabled:NO];
-    
-    NSInteger section = [children indexOfObject:calledChild];
-    [self.tableView performBatchUpdates:^{
-//        [self.tableView reloadRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:0 inSection:section]] withRowAnimation:UITableViewRowAnimationNone];
-//        [self.tableView setNeedsUpdateConstraints];
-//        [self.tableView needsUpdateConstraints];
-//        [self.tableView setNeedsLayout];
-//        [self.tableView layoutIfNeeded];
-//        [self.tableView.superview setNeedsLayout];
-//        [self.tableView.superview layoutIfNeeded];
-    }completion:^(BOOL finished) {
+        NSInteger section = [children indexOfObject:calledChild];
         
-    }];
-    
-//    [UIView setAnimationsEnabled:YES];
-        });
+        [self.tableView performBatchUpdates:^{
+        
+        } completion:^(BOOL finished) {
+            
+        }];
+    });
     
     if(self.superNode){
         [self.superNode loopUpdate:self];
     }
-    
 }
 
 

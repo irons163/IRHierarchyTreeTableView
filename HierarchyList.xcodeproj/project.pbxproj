@@ -221,31 +221,8 @@
 				8A48D8A820A2DDAD00226692 /* AppDelegate.m */,
 				8A48D8AA20A2DDAD00226692 /* ViewController.h */,
 				8A48D8AB20A2DDAD00226692 /* ViewController.m */,
-				8A48D8DC20A2E9B300226692 /* Branch.h */,
-				8A48D8DD20A2E9B300226692 /* Branch.m */,
-				8A66AA0C20A527DE005C04E8 /* BranchTableIView.h */,
-				8A66AA0D20A527DE005C04E8 /* BranchTableIView.m */,
-				8A36429D20A41250008D546A /* BranchTableViewCell.h */,
-				8A36429E20A41250008D546A /* BranchTableViewCell.m */,
-				8A36429F20A41250008D546A /* BranchTableViewCell.xib */,
-				8A3642AF20A428B2008D546A /* BranchHeaderView.h */,
-				8A3642B020A428B2008D546A /* BranchHeaderView.m */,
-				8A3642B420A42937008D546A /* BranchHeaderView.xib */,
-				8A48D8DF20A2EA1D00226692 /* Leaf.h */,
-				8A48D8E020A2EA1D00226692 /* Leaf.m */,
-				8A3642A620A414C7008D546A /* LeafTableViewCell.h */,
-				8A3642A720A414C7008D546A /* LeafTableViewCell.m */,
-				8A3642A820A414C7008D546A /* LeafTableViewCell.xib */,
-				8A48D8E220A2EBC300226692 /* Corp.h */,
-				8A36426820A2F2AF008D546A /* Model.h */,
-				8A36426920A2F2AF008D546A /* Model.m */,
-				8A36426B20A2F4DD008D546A /* FunctionModelItem.h */,
-				8A36426D20A2F4DD008D546A /* FunctionModelBranchItem.h */,
-				8A36426C20A2F4DD008D546A /* FunctionModelBranchItem.m */,
-				8A66AA0720A43F5A005C04E8 /* FunctionModelLeafItem.h */,
-				8A66AA0820A43F5A005C04E8 /* FunctionModelLeafItem.m */,
-				8A36426F20A2F83E008D546A /* Device.h */,
-				8A36427020A2F83E008D546A /* Device.m */,
+				8A4BF44723B9E06700DDB960 /* Data */,
+				8A4BF44323B9D6E200DDB960 /* Components */,
 				8A48D8AD20A2DDAD00226692 /* Main.storyboard */,
 				8A48D8B020A2DDAE00226692 /* Assets.xcassets */,
 				8A48D8B220A2DDAE00226692 /* LaunchScreen.storyboard */,
@@ -271,6 +248,77 @@
 				8A48D8CD20A2DDB200226692 /* Info.plist */,
 			);
 			path = HierarchyListUITests;
+			sourceTree = "<group>";
+		};
+		8A4BF44323B9D6E200DDB960 /* Components */ = {
+			isa = PBXGroup;
+			children = (
+				8A4BF44823B9E0D500DDB960 /* ViewModel */,
+				8A4BF44623B9D72300DDB960 /* Leaf */,
+				8A4BF44523B9D71300DDB960 /* Branch */,
+				8A4BF44423B9D70700DDB960 /* TableView */,
+				8A48D8E220A2EBC300226692 /* Corp.h */,
+			);
+			path = Components;
+			sourceTree = "<group>";
+		};
+		8A4BF44423B9D70700DDB960 /* TableView */ = {
+			isa = PBXGroup;
+			children = (
+				8A66AA0C20A527DE005C04E8 /* BranchTableIView.h */,
+				8A66AA0D20A527DE005C04E8 /* BranchTableIView.m */,
+			);
+			path = TableView;
+			sourceTree = "<group>";
+		};
+		8A4BF44523B9D71300DDB960 /* Branch */ = {
+			isa = PBXGroup;
+			children = (
+				8A48D8DC20A2E9B300226692 /* Branch.h */,
+				8A48D8DD20A2E9B300226692 /* Branch.m */,
+				8A36429D20A41250008D546A /* BranchTableViewCell.h */,
+				8A36429E20A41250008D546A /* BranchTableViewCell.m */,
+				8A36429F20A41250008D546A /* BranchTableViewCell.xib */,
+				8A3642AF20A428B2008D546A /* BranchHeaderView.h */,
+				8A3642B020A428B2008D546A /* BranchHeaderView.m */,
+				8A3642B420A42937008D546A /* BranchHeaderView.xib */,
+			);
+			path = Branch;
+			sourceTree = "<group>";
+		};
+		8A4BF44623B9D72300DDB960 /* Leaf */ = {
+			isa = PBXGroup;
+			children = (
+				8A48D8DF20A2EA1D00226692 /* Leaf.h */,
+				8A48D8E020A2EA1D00226692 /* Leaf.m */,
+				8A3642A620A414C7008D546A /* LeafTableViewCell.h */,
+				8A3642A720A414C7008D546A /* LeafTableViewCell.m */,
+				8A3642A820A414C7008D546A /* LeafTableViewCell.xib */,
+			);
+			path = Leaf;
+			sourceTree = "<group>";
+		};
+		8A4BF44723B9E06700DDB960 /* Data */ = {
+			isa = PBXGroup;
+			children = (
+				8A36426F20A2F83E008D546A /* Device.h */,
+				8A36427020A2F83E008D546A /* Device.m */,
+			);
+			path = Data;
+			sourceTree = "<group>";
+		};
+		8A4BF44823B9E0D500DDB960 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				8A36426820A2F2AF008D546A /* Model.h */,
+				8A36426920A2F2AF008D546A /* Model.m */,
+				8A36426B20A2F4DD008D546A /* FunctionModelItem.h */,
+				8A36426D20A2F4DD008D546A /* FunctionModelBranchItem.h */,
+				8A36426C20A2F4DD008D546A /* FunctionModelBranchItem.m */,
+				8A66AA0720A43F5A005C04E8 /* FunctionModelLeafItem.h */,
+				8A66AA0820A43F5A005C04E8 /* FunctionModelLeafItem.m */,
+			);
+			path = ViewModel;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -568,7 +616,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 11.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
@@ -617,7 +665,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 11.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
 				VALIDATE_PRODUCT = YES;
@@ -631,7 +679,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = F7AP32ZTM5;
 				INFOPLIST_FILE = HierarchyList/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				ONLY_ACTIVE_ARCH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = com.irons163.HierarchyList;
@@ -647,7 +695,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = F7AP32ZTM5;
 				INFOPLIST_FILE = HierarchyList/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				ONLY_ACTIVE_ARCH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = com.irons163.HierarchyList;

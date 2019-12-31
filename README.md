@@ -1,34 +1,34 @@
-//
-//  ViewController.m
-//  HierarchyList
-//
-//  Created by Phil on 2018/5/9.
-//  Copyright © 2018年 Phil. All rights reserved.
-//
+![Build Status](https://img.shields.io/badge/build-%20passing%20-brightgreen.svg)
+![Platform](https://img.shields.io/badge/Platform-%20iOS%20-blue.svg)
 
-#import "ViewController.h"
-#import "Branch.h"
-#import "Leaf.h"
-#import "Device.h"
-#import "BranchTableIView.h"
-#import "FunctionModelBranchItem.h"
+# IRHierarchyTreeTableView 
 
-@interface ViewController ()<UITableViewDelegate, UITableViewDataSource, HierarchyViewModelDelegate>{
-    Model *model;
-    Branch *branch;
-}
-@property UITableView *tableView;
-@end
+- IRHierarchyTreeTableView is a powerful tab view controller for iOS.
 
-@implementation ViewController
+## Features
+- Clear component of Hierarchy Tree.
+- Fold and expand smoothly.
+- Friendly UI.
 
-- (void)viewDidLoad {
-    [super viewDidLoad];
-    
+## Install
+### Git
+- Git clone this project.
+- Copy this project into your own project.
+- Add the .xcodeproj into you  project and link it as embed framework.
+#### Options
+- You can remove the `ScreenShots` folder.
+
+### Cocoapods
+- Not support yet.
+
+## Usage
+
+### Basic
+
+To use the tabbed page view controller, simply create a `UIViewController` that is a subclass of `IRTabbedPageViewController`. Then implement the following data source method:
+
+```obj-c
     self.tableView = [[BranchTableIView alloc] init];
-//    model = [[Model alloc] init];
-//    model.delegate = self;
-//    self.tableView.dataSource = model;
     self.tableView.delegate = self;
     
     Device *devicebranch1 = [[Device alloc] init];
@@ -106,37 +106,57 @@
     [branch5 add:leaf12];
     
     [self.view addSubview:self.tableView];
-    
-    [[NSLayoutConstraint constraintWithItem:self.tableView attribute:NSLayoutAttributeBottom relatedBy:NSLayoutRelationLessThanOrEqual toItem:self.view attribute:NSLayoutAttributeBottom multiplier:1.0 constant:0] setActive:YES];
-    
-    self.tableView.translatesAutoresizingMaskIntoConstraints = NO;
-    NSLayoutConstraint *top = [NSLayoutConstraint constraintWithItem:self.tableView attribute:NSLayoutAttributeTop relatedBy:NSLayoutRelationEqual toItem:self.view.safeAreaLayoutGuide attribute:NSLayoutAttributeTop multiplier:1.0 constant:0];
-    NSLayoutConstraint *bottom = [NSLayoutConstraint constraintWithItem:self.tableView attribute:NSLayoutAttributeBottom relatedBy:NSLayoutRelationGreaterThanOrEqual toItem:self.view attribute:NSLayoutAttributeBottom multiplier:1.0 constant:0];
-    NSLayoutConstraint *left = [NSLayoutConstraint constraintWithItem:self.tableView attribute:NSLayoutAttributeLeft relatedBy:NSLayoutRelationEqual toItem:self.view attribute:NSLayoutAttributeLeft multiplier:1.0 constant:0];
-    NSLayoutConstraint *right = [NSLayoutConstraint constraintWithItem:self.tableView attribute:NSLayoutAttributeRight relatedBy:NSLayoutRelationEqual toItem:self.view attribute:NSLayoutAttributeRight multiplier:1.0 constant:0];
-    bottom.priority = UILayoutPriorityDefaultHigh;
-    top.active = YES;
-    bottom.active = YES;
-    left.active = YES;
-    right.active = YES;
-    
-    self.tableView.contentInsetAdjustmentBehavior = UIScrollViewContentInsetAdjustmentAutomatic;
-    
+```
+
+### Advanced settings
+
+IRHierarchyTreeTableView can nice combine with another power tableview framework:IRHierarchyTreeTableView.
+
+
+```obj-c
+    self.tableView = [[BranchTableIView alloc] init];
+    model = [[Model alloc] init];
+    model.delegate = self;
+    self.tableView.dataSource = model;
+```
+Called when the page view controller is scrolled by the user to a specific offset, similar to `scrollViewDidScroll`. The pageOffset maintains the current page position and a scroll direction is provided.
+
+```obj-c
+- (void)pageViewController:(IRPageViewController *)pageViewController
+           didScrollToPage:(NSInteger)page;
+```
+Called when the page view controller completes a full scroll to a new page.
+
+### Appearance
+`IRTabBarView` provides properties for appearance customisation, including:
+- `sizingStyle` - Whether the tab bar should size to fit or equally distribute its tabs.
+- `tabStyle` - The styles to use for tabs:
+    - `IRTabStyleText` for text.
+    - `IRTabStyleImage` for images.
+    - `IRTabStyleImageAndText` for images and text.
+    - `IRTabStyleCustomView` for custom view.
+- `indicatorStyle` - The style to use for the current tab indicator.
+- `indicatorAttributes` - Appearance attributes for current tab indicator.
+- `tabAttributes` - Appearance attributes for tabs.
+- `selectedTabAttributes` - Appearance attributes for the selected tab.
+- `selectionIndicatorTransitionStyle` - The transition style for the selection indicator.
+ - `IRTabTransitionStyleProgressive` to progressively transition between tabs.
+ - `IRTabTransitionStyleSnap` to snap between tabs during transitioning.
+ - use `setTransitionStyle:` to set both the `selectionIndicatorTransitionStyle` and `tabTransitionStyle`.
+- `tabTransitionStyle` - The transition style to use for the tabs.
+
+#### Custom Tab Style
+Set custom tab view in the `IRTabBarViewDataSource`.
+
+```obj-c
+#pragma mark - IRTabBarViewDataSource
+- (void)tabBarView:(IRTabBarView *)tabBarView populateTab:(IRTabBarCollectionViewCell *)tab atIndex:(NSInteger)index {
+    tab.customView = YOUR_CUSTOM_TAB_VIEW;
 }
+```
 
--(void)viewWillAppear:(BOOL)animated{
-    [super viewWillAppear:animated];
-    
-    [((BranchTableIView*)self.tableView) reloadDataWithCompletion:^{
-//        [((BranchTableIView*)self.tableView) updateTableHeight];
-    }];
-    
-}
+## Screenshots
+ ![Demo](./ScreenShots/demo1.png) 
 
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
-}
-
-
-@end
+## Copyright
+##### This project is inspired from [MSSTabbedPageViewController](https://github.com/msaps/MSSTabbedPageViewController).

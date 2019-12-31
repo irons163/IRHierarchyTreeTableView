@@ -13,8 +13,7 @@
 @synthesize superNode;
 @synthesize device;
 
-- (instancetype)initWithDevice:(Device*)device
-{
+- (instancetype)initWithDevice:(Device *)device {
     self = [self init];
     if (self) {
         self.device = device;
@@ -22,29 +21,28 @@
     return self;
 }
 
--(void)add:(id)corp{
-    
+- (void)add:(id)corp {
+    NSLog(@"Leaf cannot add something.");
 }
 
 - (void)remove:(id<Corp>)corp {
-    
+    NSLog(@"Leaf cannot remove something.");
 }
 
--(NSArray *)getChildren{
+- (NSArray *)getChildren {
     return nil;
 }
 
--(void)click{
+- (void)click {
+    NSLog(@"Leaf be clicked.");
+}
+
+- (void)loopUpdate {
     
 }
 
--(void)loopUpdate{
+- (void)loopUpdate:(id<Corp>)calledChild {
     
 }
-
-
-
-
-
 
 @end
