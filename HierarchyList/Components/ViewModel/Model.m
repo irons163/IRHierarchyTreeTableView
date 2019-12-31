@@ -28,6 +28,14 @@
     return self;
 }
 
+- (instancetype)initWithTableView:(UITableView*)tableView {
+    if(self = [self init]){
+        _tableView = tableView;
+    }
+
+    return self;
+}
+
 - (void)updateWithData:(Device*)device {
     _device = device;
 }

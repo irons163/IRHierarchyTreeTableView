@@ -66,7 +66,10 @@
     Device *deviceleaf12 = [[Device alloc] init];
     deviceleaf12.name = @"leaf12";
     
-    branch = [[Branch alloc] initWithTableView:self.tableView];
+    model = [[Model alloc] init];
+//    model.delegate = self;
+    self.tableView.dataSource = model;
+    branch = [[Branch alloc] initWithModel:model];
     Branch *branch1 = [[Branch alloc] initWithDevice:devicebranch1];
     Branch *branch2 = [[Branch alloc] initWithDevice:devicebranch2];
     Branch *branch3 = [[Branch alloc] initWithDevice:devicebranch3];

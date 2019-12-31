@@ -3,7 +3,7 @@
 
 # IRHierarchyTreeTableView 
 
-- IRHierarchyTreeTableView is a powerful tab view controller for iOS.
+- IRHierarchyTreeTableView is a powerful hierarchy tree for iOS.
 
 ## Features
 - Clear component of Hierarchy Tree.
@@ -25,7 +25,7 @@
 
 ### Basic
 
-To use the tabbed page view controller, simply create a `UIViewController` that is a subclass of `IRTabbedPageViewController`. Then implement the following data source method:
+- Implement from codes:
 
 ```obj-c
     self.tableView = [[BranchTableIView alloc] init];
@@ -108,55 +108,23 @@ To use the tabbed page view controller, simply create a `UIViewController` that 
     [self.view addSubview:self.tableView];
 ```
 
+- Implement from UI: Make a UITableView extand class with `BranchTableIView`.
+
 ### Advanced settings
 
-IRHierarchyTreeTableView can nice combine with another power tableview framework:IRHierarchyTreeTableView.
+IRHierarchyTreeTableView can nice combine with another powerful tableview/collectionview framework:[IRCollectionTableViewModel](https://github.com/irons163/IRCollectionTableViewModel).
 
-
+- Sample as below, you can customize your ViewModel:
 ```obj-c
     self.tableView = [[BranchTableIView alloc] init];
     model = [[Model alloc] init];
     model.delegate = self;
     self.tableView.dataSource = model;
 ```
-Called when the page view controller is scrolled by the user to a specific offset, similar to `scrollViewDidScroll`. The pageOffset maintains the current page position and a scroll direction is provided.
-
-```obj-c
-- (void)pageViewController:(IRPageViewController *)pageViewController
-           didScrollToPage:(NSInteger)page;
-```
-Called when the page view controller completes a full scroll to a new page.
-
-### Appearance
-`IRTabBarView` provides properties for appearance customisation, including:
-- `sizingStyle` - Whether the tab bar should size to fit or equally distribute its tabs.
-- `tabStyle` - The styles to use for tabs:
-    - `IRTabStyleText` for text.
-    - `IRTabStyleImage` for images.
-    - `IRTabStyleImageAndText` for images and text.
-    - `IRTabStyleCustomView` for custom view.
-- `indicatorStyle` - The style to use for the current tab indicator.
-- `indicatorAttributes` - Appearance attributes for current tab indicator.
-- `tabAttributes` - Appearance attributes for tabs.
-- `selectedTabAttributes` - Appearance attributes for the selected tab.
-- `selectionIndicatorTransitionStyle` - The transition style for the selection indicator.
- - `IRTabTransitionStyleProgressive` to progressively transition between tabs.
- - `IRTabTransitionStyleSnap` to snap between tabs during transitioning.
- - use `setTransitionStyle:` to set both the `selectionIndicatorTransitionStyle` and `tabTransitionStyle`.
-- `tabTransitionStyle` - The transition style to use for the tabs.
-
-#### Custom Tab Style
-Set custom tab view in the `IRTabBarViewDataSource`.
-
-```obj-c
-#pragma mark - IRTabBarViewDataSource
-- (void)tabBarView:(IRTabBarView *)tabBarView populateTab:(IRTabBarCollectionViewCell *)tab atIndex:(NSInteger)index {
-    tab.customView = YOUR_CUSTOM_TAB_VIEW;
-}
-```
 
 ## Screenshots
- ![Demo](./ScreenShots/demo1.png) 
-
-## Copyright
-##### This project is inspired from [MSSTabbedPageViewController](https://github.com/msaps/MSSTabbedPageViewController).
+| Demo1 | Demo2 |
+|:---:|:---:|
+|![Demo1](./ScreenShots/demo1.png)|![Demo2](./ScreenShots/demo2.png)| 
+| Demo3 | Demo4 |
+|![Demo3](./ScreenShots/demo3.png)|![Demo4](./ScreenShots/demo4.png)| 
