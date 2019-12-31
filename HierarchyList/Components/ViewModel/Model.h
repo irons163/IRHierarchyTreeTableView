@@ -10,19 +10,24 @@
 #import "FunctionModelItem.h"
 #import "Device.h"
 
+@protocol HierarchyViewModelDelegate <NSObject>
 
+- (void)attachWithTableView:(UITableView *)tableView withIndex:(NSInteger)index;
+- (void)reloadwithIndex:(NSInteger)index;
+- (void)reload;
+- (void)hide:(NSInteger)section;
 
-@interface Model : NSObject <UITableViewDataSource>{
+@end
+
+@interface Model : NSObject <UITableViewDataSource, HierarchyViewModelDelegate>{
 @protected
     NSMutableArray<FunctionModelItem>* items;
     NSArray* infoTitleItems;
     Device* _device;
 }
 
-//@property (weak) id<HierarchyViewModelDelegate> delegate;
-@property (weak, readonly) UITableView* tableView;
-
-- (instancetype)initWithTableView:(UITableView*)tableView;
+@property (weak) id<HierarchyViewModelDelegate> delegate;
+@property (weak) UITableView* tableView;
 
 - (void)updateWithData:(Device*)device;
 - (NSString *)getSectionTitleinSection:(NSInteger)section;

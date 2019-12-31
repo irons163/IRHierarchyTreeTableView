@@ -22,27 +22,23 @@
 @synthesize superNode;
 @synthesize device;
 
-//- (instancetype)init {
-//    if(self = [super init]){
-//        children = [NSMutableArray array];
-//        _model = [[Model alloc] init];
-//        [_model updateWithData:self.device];
-//        _model.delegate = self;
-//        self.isOpened = NO;
-//    }
-//
-//    return self;
-//}
-
-- (instancetype)initWithModel:(Model *)model {
+- (instancetype)init {
     if(self = [super init]){
-//        [_model updateWithData:self.device];
-//        _model.delegate = self;
-//        self.device = _model.device;
-        self.tableView = _model.tableView;
-        self.tableView.dataSource = _model;
-        self.tableView.delegate = self;
+        children = [NSMutableArray array];
+        model = [[Model alloc] init];
+        [model updateWithData:self.device];
+        model.delegate = self;
         self.isOpened = NO;
+    }
+    
+    return self;
+}
+
+- (instancetype)initWithTableView:(UITableView *)tableView {
+    if(self = [self init]){
+        self.tableView = tableView;
+        self.tableView.dataSource = model;
+        self.tableView.delegate = self;
     }
     
     return self;
@@ -70,7 +66,7 @@
     
     tableView.bindedBranch = branch;
     branch.tableView = tableView;
-    branch.tableView.dataSource = branch->_model;
+    branch.tableView.dataSource = branch->model;
     branch.tableView.delegate = branch;
 }
 
@@ -83,7 +79,7 @@
     if(branch.isNeedReload){
         branch.isNeedReload = NO;
         [branch.tableView performBatchUpdates:^{
-            [branch->_model loadAll:branch.tableView];
+            [branch->model loadAll:branch.tableView];
         } completion:^(BOOL finished) {
             
             dispatch_async(dispatch_get_main_queue(), ^{
@@ -156,7 +152,7 @@
     [UIView setAnimationsEnabled:NO];
     
     [branch.tableView performBatchUpdates:^{
-        [branch->_model hideAll:branch.tableView];
+        [branch->model hideAll:branch.tableView];
     } completion:^(BOOL finished) {
         [branch.tableView setNeedsUpdateConstraints];
         [branch.tableView needsUpdateConstraints];
@@ -192,12 +188,12 @@
     
     if([corp isKindOfClass:[Branch class]]){
         FunctionModelBranchItem *branchItem = [[FunctionModelBranchItem alloc] initWithRowCount:1];
-//        [branchItem updateWithData:corp.device];
-        [_model addItem:branchItem];
+        [branchItem updateWithData:corp.device];
+        [model addItem:branchItem];
     }else{
         FunctionModelLeafItem *leafItem = [[FunctionModelLeafItem alloc] initWithRowCount:1];
-//        [leafItem updateWithData:corp.device];
-        [_model addItem:leafItem];
+        [leafItem updateWithData:corp.device];
+        [model addItem:leafItem];
     }
 }
 
@@ -217,7 +213,7 @@
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
-    if(![_model getSectionTitleinSection:section]){
+    if(![model getSectionTitleinSection:section]){
         return 0;
     }
     return UITableViewAutomaticDimension;
@@ -227,11 +223,11 @@
     BranchHeaderView* sectionHeaderView = (BranchHeaderView*)[tableView dequeueReusableHeaderFooterViewWithIdentifier:@"BranchHeaderView"];
     sectionHeaderView.delegate = self;
     sectionHeaderView.arrowImageView.hidden = YES;
-    sectionHeaderView.titleLabel.text = [_model getSectionTitleinSection:section];
+    sectionHeaderView.titleLabel.text = [model getSectionTitleinSection:section];
     sectionHeaderView.subTitleLabel.text = @"";
-    sectionHeaderView.leftIcon.image = [_model getSectionLeftIconinSection:section];
+    sectionHeaderView.leftIcon.image = [model getSectionLeftIconinSection:section];
     sectionHeaderView.tag = section;
-    sectionHeaderView.arrowImageView.highlighted = ![_model hiddenRowsinSection:section];
+    sectionHeaderView.arrowImageView.highlighted = ![model hiddenRowsinSection:section];
     
     return sectionHeaderView;
 }
@@ -249,8 +245,8 @@
 - (void)uu:(NSInteger)section {
     [UIView animateWithDuration:0 animations:^{
         [self.tableView performBatchUpdates:^{
-            [_model hideRows:![_model hiddenRowsinSection:section] inSection:section];
-            if([_model hiddenRowsinSection:section]){
+            [model hideRows:![model hiddenRowsinSection:section] inSection:section];
+            if([model hiddenRowsinSection:section]){
                 [self.tableView deleteRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:0 inSection:section]] withRowAnimation:UITableViewRowAnimationNone];
                 
             }else{

@@ -12,25 +12,15 @@
 #import "Model.h"
 #import "BranchTableIView.h"
 
-@protocol HierarchyViewModelDelegate <NSObject>
-
-- (void)attachWithTableView:(UITableView *)tableView withIndex:(NSInteger)index;
-- (void)reloadwithIndex:(NSInteger)index;
-- (void)reload;
-- (void)hide:(NSInteger)section;
-
-@end
-
 @interface Branch : NSObject<Corp, HierarchyViewModelDelegate>{
     NSMutableArray *children;
+    Model *model;
 }
 
 @property BOOL isOpened;
 @property BOOL isNeedReload;
 @property (weak) BranchTableIView *tableView;
-@property (readonly) Model *model;
 
-//- (instancetype)initWithTableView:(UITableView*)tableView;
-- (instancetype)initWithModel:(Model *)model;
+- (instancetype)initWithTableView:(UITableView*)tableView;
 
 @end
